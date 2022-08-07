@@ -1,0 +1,68 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="fragments/header"></div>
+
+<main>
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 theme-sidebar mb-5">
+                    <div class="d-flex sidebar-add-theme mb-2">
+                        <span class="sidebar-add-theme__text">Themes</span>
+                        <button class="sidebar-add-theme__button" id="activateAddThemeButton">
+                            <img class="icon-btn" src="../../static/img/add-icon.svg" alt=""
+                                 th:src="@{/img/add-icon.svg}"></button>
+                    </div>
+                    <form class="d-flex add-theme-form" id="addThemeForm" action="/admin/addTopic" method="post">
+                        <label>
+                            <input class="col-auto add-theme-form__input mt-1 mb-2" type="text" required>
+                        </label>
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                        <button class="col-auto add-theme-form__button" type="submit">
+                            <img src="../../static/img/submit-icon.svg" th:src="@{/img/submit-icon.svg}"
+                                 alt="submit icon" class="icon-btn">
+                        </button>
+                    </form>
+                    <div class="theme mt-3" id="testThemes">
+                        <div class="theme__section">
+                            <div class="theme__item theme-item d-flex" th:each="topic,iter : ${topicLists}"
+                                 data-th-data-id="${topic.topicId}">
+                                <input class="theme-item__input" th:id="'topicItem' + ${iter.index}"
+                                       th:value="${topic.topicName}" readonly>
+                                <span class="theme-item__control">
+                      <button class="theme-item__submit"><img src="../../static/img/submit-icon.svg" class="icon-btn"
+                                                              th:src="@{/img/submit-icon.svg}" alt=""></button>
+                      <button class="theme-item__edit"><img src="../../static/img/edit-icon.svg"
+                                                            th:src="@{/img/edit-icon.svg}" alt=""
+                                                            class="icon-btn"></button>
+                      <button class="theme-item__delete">
+                          <img src="../../static/img/delete-icon.svg" th:src="@{/img/delete-icon.svg}" alt=""
+                               class="icon-btn"></button>
+                    </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-9 detail" id="detail">
+                    <h2 class="text-start detail__title">Java 2 Fundamentals</h2>
+                    <button type="button" class="detail__create detail-card__add-button w-100 text-start"
+                            data-bs-target="#exampleModal"
+                            id="createNewTestButton"
+                            data-bs-toggle="modal">
+                        <img class="col-auto icon-btn" src="../../static/img/add-icon.svg" alt="add new test"
+                             th:src="@{/img/add-icon.svg}">
+                        <span class="col-auto detail-card__text">Create new test</span>
+                    </button>
+                    <h3 class="detail__list-title">List of tests</h3>
+                    <div class="detail__list" id="detailList">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<div th:replace="fragments/footer"></div>
+<div th:replace="fragments/modals"></div>
+
+<script th:src="@{/js/test-editor.js}"></script>

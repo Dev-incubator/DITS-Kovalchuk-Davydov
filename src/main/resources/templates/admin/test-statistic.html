@@ -1,0 +1,50 @@
+<div th:replace="fragments/header"></div>
+
+<main class="container">
+    <section class="result col-12">
+        <div class="result__container container">
+            <div class="row justify-content-center result__head">
+                <div class=" col result__title"><h3>Test statistics</h3></div>
+            </div>
+            <div class="row result__body">
+                <div class="result__control">
+                    <div class="result__control">
+                        <div class="text-start my-3">Select theme</div>
+                        <div class="d-flex gy-2 justify-content-between flex-wrap">
+                            <select class="col-md-5 col-12 theme-select" name="theme" id="themeSelect">
+                                <option value="" selected disabled>Choose theme</option>
+                                <option th:each="topic : ${topicList}" th:value="${topic.topicId}"
+                                        th:text="${topic.topicName}">Java 2 Fundamentals
+                                </option>
+                            </select>
+                            <a th:href="@{/admin/getUserStatistic}" href="#"
+                               class="col-md-5 col-12 result__link text-center">User
+                                statistics</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="data-container container mt-5" id="dataContainer">
+                    <div class="row grid__head">
+                        <div class="col-md-9 col-sm-7 text-start mb-2 grid__head-item">Test name</div>
+                        <div class="col-md-3 col-sm-5 text-center d-flex justify-content-between">
+                            <div class="text-center grid__head-item">Pass</div>
+                            <div class="text-center grid__head-item">
+                                <span>Average</span>
+                                <button class="sort-button" id="sortTestsButton"><img
+                                        src="../../static/img/sort-icon.svg"
+                                        th:src="@{/img/sort-icon.svg}" alt="sort-icon"></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row grid__item" id="resultTableBody">
+                        <!-- Fetch data layout -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<div th:replace="fragments/footer"></div>
+<div th:replace="fragments/modals"></div>
+<script src="../../static/js/test-statistic.js" th:src="@{/js/test-statistic.js}"></script>

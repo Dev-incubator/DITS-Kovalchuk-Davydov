@@ -1,0 +1,49 @@
+<div th:replace="/fragments/header"></div>
+
+<main>
+    <div class="container">
+        <div class="title">
+            <h1 class="start">To start testing choose theme and test</h1>
+        </div>
+        <form th:action="@{/user/goTest}" class="row" method="get">
+            <div class="col-12 col-lg-4 mt-4">
+                <p class="select-label mb-2">Select theme</p>
+                <select class="form-select select-input" id="testThemeSelect" name="theme"
+                        aria-label="Default select example">
+                    <!--                    <option disabled>Open this select menu</option>-->
+                    <option th:each="topic : ${topicWithQuestions}" th:text="${topic.getTopicName()}">One</option>
+                </select>
+            </div>
+            <div class="col-12 col-lg-4 hidden mt-4">
+                <p class="select-label mb-2">Select test</p>
+                <select class="form-select select-input" id="testSelect" name="testId"
+                        aria-label="Default select example">
+                    <option selected>Open this select menu</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
+            </div>
+            <div class="col-12 col-lg-4 mt-4 d-flex flex-column justify-content-end hidden">
+                <button
+                        type="submit"
+                        class="mt-4 mt-lg-0 btn"
+                        id="startTestButton"
+                >
+                    Start
+                </button>
+            </div>
+        </form>
+        <div class="test-description" id="testDescription">
+            Standart text...
+        </div>
+    </div>
+</main>
+
+<div th:replace="/fragments/footer"></div>
+<div th:replace="/fragments/modals"></div>
+
+<script th:src="@{/js/chooseTest.js}"></script>
+
+</body>
+</html>

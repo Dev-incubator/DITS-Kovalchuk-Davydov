@@ -1,0 +1,37 @@
+<div th:replace="/fragments/header"></div>
+
+<main>
+    <section class="signin">
+        <div class="container">
+            <div class="row">
+                <div class="col-4 offset-1 d-flex justify-content-center align-items-center signin-img">
+                    <img class="signin-image" th:src="@{/img/signin-img.png}" alt="">
+                </div>
+                <div class="col-md-6 offset-md-1">
+                    <form class="form" th:action="@{/login}" method="post">
+                        <h2 class="form-title col-10 offset-1">Sign in</h2>
+                        <div class="input-container col-10 offset-1">
+                            <label for="exampleInputEmail1" class="form-label">Login</label>
+                            <input type="text" class="form-control form-input" id="exampleInputEmail1" name="login">
+                        </div>
+                        <div class="input-container password-container col-10 offset-1">
+                            <label for="password-input" class="form-label">Password</label>
+                            <input type="password" class="form-control form-password form-input" id="password-input"
+                                   name="password">
+                            <a href="#" class="password-control" id="password-control"></a>
+                        </div>
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                        <button type="submit" class="btn col-10 offset-1 mt-5 form-button">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<div th:replace="/fragments/footer"></div>
+<div th:replace="/fragments/modals"></div>
+
+<script th:src="@{/js/login.js}"></script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+    <meta th:name="${_csrf.parameterName}" th:content="${_csrf.token}">
+    <link rel="icon" type="image/png" th:href="@{/img/favicon.ico}"/>
+    <title th:text="${title}"></title>
+
+</head>
+<body class="page">
+<header class="p-3 page__header">
+    <div class="container">
+        <nav class="row navbar navbar-expand-lg"  style="background-color: #012438;">
+            <div class="container-fluid">
+                <div th:if="${session.user == null}">
+                    <a th:href="@{/login}"> <img th:src="@{/img/logo.svg}" alt="devincubator logo" src="/img/logo.svg"> </a>
+                </div>
+                <div th:if="${session.user != null}" th:switch="${session.user.getRole()}">
+                    <a th:case="'ROLE_USER'" th:href="@{/user/chooseTest}">
+                        <img th:src="@{/img/logo.svg}" alt="devincubator logo" src="/img/logo.svg">
+                    </a>
+                    <a th:case="'ROLE_ADMIN'">
+                        <img th:src="@{/img/logo.svg}" alt="devincubator logo" src="/img/logo.svg">
+                    </a>
+                </div>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                    <div class="burger">
+                        <div></div>
+                    </div>
+                </button>
+                <div class="collapse navbar-collapse justify-content-between" id="navbarNavAltMarkup">
+                    <div class="text-end w-100" th:if="${session.user == null}">
+                        <div class="focus header-text">Authentication required</div>
+                    </div>
+                    <th:block th:if="${session.user != null}" th:switch="${session.user.getRole()}">
+                        <th:block th:case="'ROLE_ADMIN'">
+                            <div class="navbar-nav offset-lg-1 col-lg-5 justify-content-between">
+                                <a th:class="${title == 'Test editor'} ? 'nav-link active' : 'nav-link'"
+                                   href="#" th:href="@{/admin/testBuilder}">Tests</a>
+                                <a th:class="${title == 'Statistic' || title == 'User statistic'} ? 'nav-link active' : 'nav-link'"
+                                   href="#" th:href="@{/admin/adminStatistic}">Statistic</a>
+                            </div>
+                            <div class="offset-lg-1 align-items-center d-flex">
+                                <span>Admin</span>
+                                <span class="nav-control__separator"></span>
+                                <span th:text="${session.user.firstName} + ' ' + ${session.user.lastName}">Admin Name</span>
+                                <a class="nav-control__logout" href="#" th:href="@{/logout}"><img th:src="@{/img/logout-icon.svg}" alt="logout-icon" src="/img/logout-icon.svg"></a>
+                            </div>
+                        </th:block>
+                        <th:block th:case="'ROLE_USER'">
+                            <div class="navbar-nav offset-lg-1 col-lg-5 justify-content-between">
+                                <a th:class="${title == 'Testing' } ? 'nav-link active' : 'nav-link'"
+                                   th:href="@{/user/chooseTest}" >Assessment</a>
+                            </div>
+                            <div class="offset-lg-1 align-items-center d-flex">
+                                <span>User</span>
+                                <span class="nav-control__separator"></span>
+                                <span th:text="${session.user.firstName} + ' ' + ${session.user.lastName}">User Name</span>
+                                <a class="nav-control__logout" href="#" th:href="@{/logout}"><img
+                                        th:src="@{/img/logout-icon.svg}" alt="logout-icon" src="/img/logout-icon.svg"></a>
+                            </div>
+                        </th:block>
+                    </th:block>
+                </div>
+            </div>
+        </nav>
+    </div>
+</header>

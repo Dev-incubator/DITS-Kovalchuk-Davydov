@@ -1,0 +1,51 @@
+<div th:replace="/fragments/header"></div>
+
+<main>
+    <div class="container">
+        <div class="row">
+            <div class="d-flex align-items-baseline title">
+                <h1 th:text="${session.topicName}">To start testing choose theme and test</h1>
+                <h3 th:text="${session.testName}">Java 2 Fundamentals</h3>
+                <p th:text="${session.questionNumber} + '/' + ${session.questionSize}">11/20</p>
+            </div>
+        </div>
+        <div class="row">
+            <form id="form-test-item" action="#"
+                  th:action="${session.questionSize == session.questionNumber} ? 'resultPage' : 'nextTestPage'"
+                  th:method="get">
+                <pre class="question" th:text="${question}">
+                </pre>
+                <div class="answer answer_variant" th:each="answer, iter : ${answers}">
+                    <input id="answer1" th:id="${answer.answerId}" type="checkbox" name="answeredQuestion"
+                           th:value="${iter.index}">
+                    <label class="w-100 d-flex py-4" for="answer1" th:for="${answer.answerId}"
+                           th:text="${answer.getDescription}"></label>
+                </div>
+                <button
+                        type="submit"
+                        class="btn btn-lg w-100 mt-5"
+                        th:if="${session.questionSize != session.questionNumber}"
+                >
+                    Next
+                    <img src="../../static/img/arrow.png" th:src="@{/img/arrow.png}" alt="Next">
+                </button>
+                <button
+                        type="submit"
+                        class="btn btn-lg w-100 mt-5"
+                        th:if="${session.questionSize == session.questionNumber}"
+                >
+                    Finish
+                    <img src="../../static/img/arrow.png" th:src="@{/img/arrow.png}" alt="Next">
+                </button>
+            </form>
+        </div>
+
+    </div>
+    </div>
+</main>
+<div th:replace="/fragments/footer"></div>
+<div th:replace="/fragments/modals"></div>
+
+<script th:src="@{/js/test-item.js}"></script>
+</body>
+</html>

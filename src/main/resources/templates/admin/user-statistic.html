@@ -1,0 +1,51 @@
+<div th:replace="fragments/header"></div>
+
+<main class="container">
+    <section class="result col-12">
+        <div class="result__container container">
+            <div class="row justify-content-center result__head">
+                <div class=" col result__title"><h3>User statistics</h3></div>
+            </div>
+            <div class="row result__body">
+                <div class="result__control">
+                    <div class="text-start my-3">Select a student</div>
+                    <div class="d-flex gy-2 justify-content-between flex-wrap">
+                        <select class="col-md-5 col-12 theme-select" name="theme" id="themeSelect">
+                            <option value="" selected disabled>Student name</option>
+                            <option th:each="user : ${usersList}" th:value="${user.userId}"
+                                    th:text="${user.firstName}+ ' ' + ${user.lastName}">Username
+                            </option>
+                        </select>
+                        <a th:href="@{/admin/adminStatistic}" href="#"
+                           class="col-md-5 col-12 result__link text-center">Test
+                            statistics</a>
+                    </div>
+                </div>
+                <div class="data-container container mt-5" id="dataContainer">
+                    <div class="row grid__head">
+                        <div class="col-1 text-start d-none d-md-block">#</div>
+                        <div class="col-md-8 col-sm-7 text-start mb-2 grid__head-item">Name of the test</div>
+                        <div class="col-md-3 col-sm-5 text-center d-flex justify-content-between">
+                            <div class="text-center grid__head-item">Pass</div>
+                            <div class="text-center grid__head-item">
+                                <span>Average</span>
+                                <button class="sort-button" id="sortTestsButton"><img th:src="@{/img/sort-icon.svg}"
+                                                                                      alt="sort-icon"
+                                                                                      src="/img/sort-icon.svg">
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row grid__item" id="resultTableBody">
+                        <!-- Fetch data layout -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<div th:replace="fragments/footer"></div>
+<div th:replace="fragments/modals"></div>
+
+<script src="../../static/js/user-statistic.js" th:src="@{/js/user-statistic.js}"></script>
