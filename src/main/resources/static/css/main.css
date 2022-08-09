@@ -742,6 +742,93 @@ body {
     margin-top: 22px;
 }
 
+.confirmation-modal-title {
+    position: absolute;
+    left: 14.4%;
+    right: 14.35%;
+    top: 16.5%;
+    bottom: 72.25%;
+
+    /* h2 */
+
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 45px;
+    /* identical to box height, or 150% */
+
+    text-align: center;
+
+    color: #000000;
+}
+
+.confirmation-modal-question {
+    position: absolute;
+    left: 14.6%;
+    right: 14.65%;
+    top: 33.5%;
+    bottom: 47%;
+
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 36px;
+}
+
+.confirmation-modal-warning {
+    position: absolute;
+    left: 11.8%;
+    right: 11.7%;
+    top: 60.25%;
+    bottom: 33.5%;
+
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 21px;
+    text-align: center;
+
+    /* text */
+
+    color: #141414;
+}
+
+.confirmation-modal-btn-cancel {
+    position: absolute;
+    left: 3%;
+    right: 53%;
+    top: 75%;
+    bottom: 12.5%;
+
+    /* orange */
+
+    background: #F78F0F;
+    /* 1 */
+
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+}
+
+.confirmation-modal-btn-accept {
+    position: absolute;
+    left: 53%;
+    right: 3%;
+    top: 75%;
+    bottom: 12.5%;
+
+    /* green */
+
+    background: #008F02;
+    /* 1 */
+
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+
+}
+
 .hidden {
     visibility: hidden;
 }
@@ -826,8 +913,17 @@ body {
     margin: 30px 0;
 }
 
+.users__item {
+    display: flex;
+    justify-content: space-between;
+}
+
 .users__item:not(:first-child) {
     margin-top: 24px;
+}
+
+.users__email__left {
+    padding-left: 50px;
 }
 
 .add-button {
@@ -1431,3 +1527,4 @@ main .form-select:focus {
         margin-top: 25px;
     }
 }
+
