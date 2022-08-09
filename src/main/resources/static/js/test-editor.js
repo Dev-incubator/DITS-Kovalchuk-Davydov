@@ -42,12 +42,12 @@ let currentThemeId = null;
 let dataByTopicId = null;
 const baseUrl = window.origin;
 
-addThemeForm.addEventListener('submit', async (event) => {
+addThemeForm.addEventListener('submit',  (event) => {
     event.preventDefault();
     const newThemeValue = addThemeFormInput.value;
     deactivateAddThemeForm();
     if (newThemeValue.length) {
-        addTopic().then();
+        addTopic(newThemeValue).then();
     }
 });
 
@@ -100,7 +100,9 @@ detailList.addEventListener('click', ({target}) => {
     }
 });
 
-async function addTopic() {
+
+//remake method signature in start project
+async function addTopic(newThemeValue) {
     const url = new URL(baseUrl + "/admin/addTopic");
     const topic = {topicName: newThemeValue};
     const response = await fetch(url.toString(), {

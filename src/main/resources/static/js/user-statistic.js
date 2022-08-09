@@ -12,12 +12,12 @@ dataContainer.addEventListener('click', (event) => {
     }
 });
 
-themeSelect.addEventListener('change', async ({target}) => {
+themeSelect.addEventListener('change',  ({target}) => {
     dataContainer.classList.remove('active');
     try {
         getUserTestStatistics(target).then()
     } catch (err) {
-        console.error(err)
+        console.error('asdas')
     }
 });
 
