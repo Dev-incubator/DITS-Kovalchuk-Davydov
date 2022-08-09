@@ -1,0 +1,46 @@
+<div th:replace="/fragments/header"></div>
+
+<main>
+    <div class="container">
+        <div class="row">
+            <div class="d-flex align-items-baseline title">
+                <h1 th:text="${session.topicName}">Theme name</h1>
+                <h2 th:text="${session.testName}">Test name</h2>
+            </div>
+        </div>
+        <div class="result__container">
+            <div class="row justify-content-center result__head">
+                <div class="col result__title">
+                    <h3>Your result</h3>
+                </div>
+            </div>
+            <div class="row result__body">
+                <div class="result">
+                    <h2 th:text="${session.resultPercentage} + '%'">100%</h2>
+                    <h2 th:text="'(' + ${session.quantityOfRightAnswers} + '/' + ${session.questionSize} + ')'">(10/10)</h2>
+                </div>
+                <div class="result">
+                    <div class="count-answers">
+                        <p>Correct answers</p>
+                        <p th:text="${session.quantityOfRightAnswers}">10</p>
+                    </div>
+                    <div class="count-answers">
+                        <p>Wrong answers</p>
+                        <p th:text="${session.questionSize} - ${session.quantityOfRightAnswers}">0</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <form th:action="@{/user/statistics}" method="get" class="mt-5 w-75 mx-auto">
+            <button value class="btn submit-button w-100" type="submit">
+                Show all my statistics
+            </button>
+        </form>
+    </div>
+</main>
+
+<div th:replace="/fragments/footer"></div>
+<div th:replace="/fragments/modals"></div>
+
+</body>
+</html>

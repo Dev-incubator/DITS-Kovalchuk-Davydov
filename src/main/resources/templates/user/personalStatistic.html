@@ -1,0 +1,66 @@
+<div th:replace="/fragments/header"></div>
+
+<main>
+    <div class="container">
+        <div th:if="${statistics == null || statistics.isEmpty()}">
+            <div class="title align-items-baseline">
+                <h1 class="start" th:text="${session.user.getFirstName()} + ' ' + ${session.user.getLastName()}"></h1>
+            </div>
+            <div class="row header-text">
+                <p>You haven't finished any tests yet</p>
+            </div>
+            <div class="btn mt-2 w-25 bt">
+                <form th:action="@{/user/chooseTest}" method="get">
+                    <button class="bar__text" type="submit">Start now</button>
+                </form>
+            </div>
+        </div>
+        <div th:if="${statistics != null && !statistics.isEmpty()}">
+            <section class="result col-12">
+                <div class="result__container container">
+                    <div class="row justify-content-center result__head">
+                        <div class="col result__title">
+                            <h3>Your personal statistics</h3>
+                        </div>
+                    </div>
+                    <div class="row p-3">
+                        <div class="data-container active container mt-5 w-95" id="dataContainer">
+                            <div class="row grid__head">
+                                <div class="col-1 text-start d-none d-md-block">#</div>
+                                <div class="col-md-8 col-sm-7 text-start mb-2 grid__head-item">Name of the test</div>
+                                <div class="col-md-3 col-sm-5 text-center d-flex justify-content-between">
+                                    <div class="text-center grid__head-item">Pass</div>
+                                    <div class="text-center grid__head-item">
+                                        <span>Average</span>
+                                        <button type="submit" class="sort-button" id="sortTestsButton">
+                                            <img th:src="@{/img/sort-icon.svg}" alt="sort-icon" src="/img/sort-icon.svg">
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="resultTableBody">
+                                <div class="row grid__item test" th:each="stat,counter : ${statistics}">
+                                    <div class="col-1 text-start d-none d-md-block" th:text="${counter.count}">1</div>
+                                    <div class="col-md-8 col-sm-7 text-start mb-2" th:text="${stat.getTestName()}">Test name</div>
+                                    <div class="col-md-3 col-sm-5 text-center d-flex justify-content-between">
+                                        <div th:text="${stat.getCount()}">1</div>
+                                        <div th:text="${stat.getAvgProc()}">1</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</main>
+
+<div th:replace="/fragments/footer"></div>
+<div th:replace="/fragments/modals"></div>
+
+
+<script th:src="@{/js/user-statistic.js}"></script>
+
+</body>
+</html>
