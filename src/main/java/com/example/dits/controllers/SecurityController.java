@@ -1,5 +1,6 @@
 package com.example.dits.controllers;
 
+import com.example.dits.entity.User;
 import com.example.dits.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -17,13 +18,15 @@ import javax.servlet.http.HttpSession;
 @Controller
 @RequiredArgsConstructor
 public class SecurityController {
+
     private final UserService userService;
 
     @GetMapping("/login-handle")
     public String loginHandle(HttpSession session) {
-        session.setAttribute("user", userService.getUserInfoByLogin(getUsername()));
+        User user = userService.getUserByLogin(getUsername());
         String authority = getAuthority();
-        return authority.contains("USER") ? "redirect:/user/chooseTest" : "redirect:/admin/testBuilder";
+        session.setAttribute("user", user);
+        return authority.contains("USER") ? "redirect:/user/chooseTest" : "redirect:/admin/userEditor";
     }
 
     @GetMapping("/login")
