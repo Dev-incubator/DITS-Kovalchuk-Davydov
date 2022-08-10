@@ -1,9 +1,15 @@
 package com.example.dits.controllers;
 
 import com.example.dits.dto.TestStatisticByUser;
+import com.example.dits.dto.UserInfoDTO;
+import com.example.dits.entity.Question;
 import com.example.dits.entity.Statistic;
+import com.example.dits.entity.Test;
 import com.example.dits.entity.User;
+import com.example.dits.mapper.UserSatatisticsMapper;
 import com.example.dits.service.StatisticService;
+import com.example.dits.service.TestService;
+import com.example.dits.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,17 +25,20 @@ import java.util.List;
 @RequestMapping("/user")
 public class UserStatisticsController {
 
+    private final UserService userService;
     private final StatisticService statisticService;
+    private final TestService testService;
+    private final UserSatatisticsMapper userSatatisticsMapper;
 
     @GetMapping("/statistics")
     public String userStatistics(Model model, HttpSession session) {
+        UserInfoDTO userInfoDTO = (UserInfoDTO) session.getAttribute("user");
+        User user = userService.getUserByLogin(userInfoDTO.getLogin());
+        List<TestStatisticByUser> statistics = userSatatisticsMapper.statisticToDto(statisticService.getStatisticsByUser(user), testService.findAll());
 
-        List<TestStatisticByUser> statistics = new ArrayList<>() {};
-        statistics.add(new TestStatisticByUser("Chem", 1, 100));
-        statistics.add(new TestStatisticByUser("Maht", 5, 50));
-        statistics.add(new TestStatisticByUser("Phiz", 2, 90));
-
+        statistics.sort(TestStatisticByUser :: compareTo);
         model.addAttribute("statistics", statistics);
+
         return "user/personalStatistic";
     }
 }
