@@ -12,7 +12,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class SecurityControllerTestForUser {
+public class ChooseTestControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -21,8 +21,17 @@ public class SecurityControllerTestForUser {
             authorities = {"ROLE_USER"})
 
     @Test
-    public void testAuthenticatedOnUser() throws Exception {
+    public void testUserChoseTestPage() throws Exception {
         mockMvc.perform(get("/user/chooseTest"))
+                .andExpect(status().isOk());
+    }
+
+    @WithMockUser(username = "user",
+            authorities = {"ROLE_USER"})
+
+    @Test
+    public void testUserThemePage() throws Exception {
+        mockMvc.perform(get("/user/chooseTheme"))
                 .andExpect(status().isOk());
     }
 }

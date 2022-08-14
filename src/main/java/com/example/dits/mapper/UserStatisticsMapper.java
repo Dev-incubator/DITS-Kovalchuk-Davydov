@@ -12,7 +12,7 @@ import java.util.List;
 
 @Component
 @RequiredArgsConstructor
-public class UserSatatisticsMapper {
+public class UserStatisticsMapper {
     public List<TestStatisticByUser> statisticToDto(List<Statistic> statistics, List<Test> tests) {
         List<TestStatisticByUser> testStatisticByUsers = new ArrayList<>();
 
