@@ -1,74 +1,84 @@
-//package com.example.dits.service.impl;
-//
-//import com.example.dits.DAO.TopicRepository;
-//import com.example.dits.DAO.UserRepository;
-//import com.example.dits.entity.Topic;
-//import com.example.dits.entity.User;
-//import com.example.dits.service.TopicService;
-//import org.junit.jupiter.api.BeforeEach;
-//import org.junit.jupiter.api.Test;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.boot.test.context.SpringBootTest;
-//import org.springframework.boot.test.mock.mockito.MockBean;
-//
-//import java.util.Optional;
-//
-//import static org.junit.jupiter.api.Assertions.*;
-//import static org.mockito.ArgumentMatchers.anyInt;
-//import static org.mockito.Mockito.*;
-//
-//@SpringBootTest
-//class UserServiceImplTest {
-//    @Autowired
-//    private UserService service;
-//    @MockBean
-//    private UserRepository repository;
-//
-//    private User user;
-//
-//    @Test
-//    void shouldInvokeMethodSaveFromRepository() {;
-//        service.save(user);
-//        verify(repository, times(1)).save(user);
-//        verifyNoMoreInteractions(repository);
-//    }
-//
-//    @Test
-//    void shouldReturnFromUpdateWhenThereIsNoUserById() {
-//        when(repository.findById(anyInt())).thenReturn(Optional.empty());
-//        service.update(user,anyInt());
-//        verify(repository,times(1)).findById(anyInt());
-//        verifyNoMoreInteractions(repository);
-//    }
-//
-//    @Test
-//    void shouldInvokeSaveOnRepositoryWhenThereIsUserById(){
-//        when(repository.findById(anyInt())).thenReturn(Optional.of(new User()));
-//        service.update(user,anyInt());
-//        verify(repository,times(1)).findById(anyInt());
-//        verify(repository,times(1)).save(user);
-//        verifyNoMoreInteractions(repository);
-//    }
-//
-//    @Test
-//    void shouldInvokeDeleteOnRepository(){
-//        service.delete(user);
-//        verify(repository,times(1)).delete(user);
-//        verifyNoMoreInteractions(repository);
-//    }
-//
-//    @Test
-//    void shouldInvokeFindAllOnRepository(){
-//        service.findAll();
-//        verify(repository,times(1)).findAll();
-//        verifyNoMoreInteractions(repository);
-//    }
-//
-//    @Test
-//    void shouldInvokeGetUserByLoginInRepository(){
-//        String anyString = anyString();
-//       service.getUserByLogin(anyString);
-//       verify(repository,times(1)).getUserByLogin(anyString);
-//       verifyNoMoreInteractions(repository);
-//    }
-//}
+package com.example.dits.service.impl;
+
+import com.example.dits.DAO.UserRepository;
+import com.example.dits.entity.Role;
+import com.example.dits.entity.User;
+import com.example.dits.service.UserService;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+
+import java.util.ArrayList;
+import java.util.Optional;
+
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.*;
+
+@SpringBootTest
+class UserServiceImplTest {
+    @Autowired
+    private UserService userService;
+    @MockBean
+    private UserRepository userRepository;
+
+    private User user = new User();
+
+    {
+        user.setPassword("aa");
+        user.setUserId(0);
+        user.setFirstName("aa");
+        user.setRole(new Role(1, "aa", new ArrayList<>()));
+        user.setLogin("aa");
+        user.setLastName("aa");
+        user.setStatistics(new ArrayList<>());
+    }
+
+    @Test
+    void shouldInvokeMethodSaveFromRepository() {
+        userService.save(user);
+        verify(userRepository, times(1)).save(user);
+        verifyNoMoreInteractions(userRepository);
+    }
+
+    @Test
+    void shouldReturnFromUpdateWhenThereIsNoUserById() {
+        given(userRepository.getById(anyInt())).willReturn(user);
+        userService.update(user,anyInt());
+        verify(userRepository,times(1)).getById(anyInt());
+        verifyNoMoreInteractions(userRepository);
+    }
+
+    @Test
+    void shouldInvokeSaveOnRepositoryWhenThereIsUserById(){
+        when(userRepository.findById(anyInt())).thenReturn(Optional.of(new User()));
+        userService.update(user,anyInt());
+        verify(userRepository,times(1)).findById(anyInt());
+        verify(userRepository,times(1)).save(user);
+        verifyNoMoreInteractions(userRepository);
+    }
+
+    @Test
+    void shouldInvokeDeleteOnRepository(){
+        userService.removeUser(user.getUserId());
+        verify(userRepository,times(1)).deleteById(user.getUserId());
+        verifyNoMoreInteractions(userRepository);
+    }
+
+    @Test
+    void shouldInvokeFindAllOnRepository(){
+        when(userRepository.findAll()).thenReturn(new ArrayList<>());
+        userService.getAllUsers();
+        verify(userRepository,times(1)).findAll();
+        verifyNoMoreInteractions(userRepository);
+    }
+
+    @Test
+    void shouldInvokeGetUserByLoginInRepository(){
+        String anyString = anyString();
+        userService.getUserByLogin(anyString);
+        verify(userRepository,times(1)).getUserByLogin(anyString);
+        verifyNoMoreInteractions(userRepository);
+    }
+}
