@@ -25,7 +25,7 @@ class SecurityControllerTestForAdmin {
 
     @Test
     public void testAuthenticatedOnAdmin() throws Exception {
-        mockMvc.perform(get("/admin"))
+        mockMvc.perform(get("/admin/userEditor"))
                 .andExpect(status().isOk());
     }
 }
