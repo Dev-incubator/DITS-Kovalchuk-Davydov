@@ -1,18 +1,17 @@
 package com.example.dits.controllers;
 
 import com.example.dits.dto.*;
-import com.example.dits.entity.Topic;
+import com.example.dits.entity.Statistic;
 import com.example.dits.service.TopicService;
 import com.example.dits.service.UserService;
 import com.example.dits.service.impl.StatisticServiceImpl;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 @Controller
 @RequiredArgsConstructor
@@ -34,6 +33,12 @@ public class AdminStatisticController {
     @GetMapping("/getTestsStatistic")
     public List<TestStatistic> getTestsStatistics(@RequestParam int id) {
         return statisticService.getListOfTestsWithStatisticsByTopic(id);
+    }
+
+    @ResponseBody
+    @GetMapping("/getUserTestsStatistic")
+    public List<Statistic> getUserTestsStatistic(@RequestParam int id) {
+        return statisticService.getStatisticsByUser(userService.getUserById(id));
     }
 
     @GetMapping("/getUserStatistic")
