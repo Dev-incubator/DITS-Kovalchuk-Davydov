@@ -1,8 +1,10 @@
 package com.example.dits.service.impl;
 
 import com.example.dits.DAO.UserRepository;
+import com.example.dits.dto.UserInfoDTO;
 import com.example.dits.entity.User;
 import com.example.dits.service.UserService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,10 +14,12 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService {
     private final UserRepository repository;
+    private final ModelMapper modelMapper;
 
     @Autowired
-    public UserServiceImpl(UserRepository repository) {
+    public UserServiceImpl(UserRepository repository, ModelMapper modelMapper) {
         this.repository = repository;
+        this.modelMapper = modelMapper;
     }
 
     @Override
@@ -61,5 +65,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserById(int userId) {
         return repository.findById(userId).orElse(null);
+    }
+
+    @Transactional
+    public UserInfoDTO getUserInfoByLogin(String login){
+        return modelMapper.map(repository.getUserByLogin(login), UserInfoDTO.class);
     }
 }
