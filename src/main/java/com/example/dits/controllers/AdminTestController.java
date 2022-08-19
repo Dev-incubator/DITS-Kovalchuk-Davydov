@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,7 +37,7 @@ public class AdminTestController {
 
     @ResponseBody
     @PostMapping("/addTopic")
-    public List<TopicDTO> addTopic(@RequestBody TopicDTO topic){
+    public List<TopicDTO> addTopic(@RequestBody TopicDTO topic, HttpSession httpSession){
         Topic topicToSave = new Topic(topic.getTopicName());
         topicService.save(topicToSave);
         return getTopicDTOList();
@@ -58,7 +59,7 @@ public class AdminTestController {
 
     @ResponseBody
     @PostMapping("/addTest")
-    public List<TestWithQuestionsDTO> addTest(@RequestBody TestInfoDTO testInfo){
+    public List<TestWithQuestionsDTO> addTest(@RequestBody TestInfoDTO testInfo, HttpSession httpSession){
         Topic topic = topicService.getTopicByTopicId(testInfo.getTopicId());
         Test test = Test.builder().name(testInfo.getName()).description(testInfo.getDescription()).topic(topic).build();
         testService.save(test);
@@ -81,7 +82,7 @@ public class AdminTestController {
 
     @ResponseBody
     @PostMapping("/addQuestion")
-    public List<TestWithQuestionsDTO> addQuestion(@RequestBody QuestionEditModel questionModel){
+    public List<TestWithQuestionsDTO> addQuestion(@RequestBody QuestionEditModel questionModel, HttpSession httpSession){
         questionService.addQuestion(questionModel);
         return getTestWithQuestionsDTOList(topicService.getTopicByTopicId(questionModel.getTopicId()));
     }

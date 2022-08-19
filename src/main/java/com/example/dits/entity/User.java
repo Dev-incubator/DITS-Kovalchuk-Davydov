@@ -27,8 +27,8 @@ public class User {
     @Column(length = 30)
     private String login;
     @Column
+    @ToString.Exclude
     private String password;
-
 
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinTable(name = "users_role"
