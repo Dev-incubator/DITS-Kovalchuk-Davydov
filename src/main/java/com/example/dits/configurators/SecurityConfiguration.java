@@ -2,6 +2,7 @@ package com.example.dits.configurators;
 
 import com.example.dits.handlers.CustomSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -51,5 +52,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                     .usernameParameter("login").passwordParameter("password").failureUrl("/login?fail=1")
                 .and().csrf()
                 .and().exceptionHandling().accessDeniedPage("/accessDenied");
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 }

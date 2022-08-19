@@ -7,6 +7,7 @@ import com.example.dits.service.RoleService;
 import com.example.dits.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +19,8 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @RequestMapping("/admin")
 public class AdminUserController {
+
+    private final PasswordEncoder passwordEncoder;
     private final UserService userService;
     private final RoleService roleService;
     private final ModelMapper modelMapper;
@@ -41,6 +44,7 @@ public class AdminUserController {
         User user = modelMapper.map(userInfo, User.class);
         Role role = roleService.getRoleByRoleName(userInfo.getRole());
         user.setRole(role);
+        user.setPassword(passwordEncoder.encode(userInfo.getPassword()));
         userService.save(user);
         return getUsersList();
     }
@@ -51,6 +55,7 @@ public class AdminUserController {
         int userId = userInfo.getUserId();
         Role role = roleService.getRoleByRoleName(userInfo.getRole());
         user.setRole(role);
+        user.setPassword(passwordEncoder.encode(userInfo.getPassword()));
         userService.update(user, userId);
         return "redirect:/admin/getUsers";
     }
