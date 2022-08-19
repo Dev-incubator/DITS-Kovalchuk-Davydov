@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -40,7 +41,7 @@ public class AdminUserController {
 
     @ResponseBody
     @PostMapping("/addUser")
-    public List<UserInfoDTO> adduser(@RequestBody UserInfoDTO userInfo) {
+    public List<UserInfoDTO> addUser(@RequestBody UserInfoDTO userInfo, HttpSession httpSession) {
         User user = modelMapper.map(userInfo, User.class);
         Role role = roleService.getRoleByRoleName(userInfo.getRole());
         user.setRole(role);
