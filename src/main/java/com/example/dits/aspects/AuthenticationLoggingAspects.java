@@ -16,7 +16,7 @@ import java.util.Date;
 
 @Aspect
 @Component
-public class AuthenticationAspects {
+public class AuthenticationLoggingAspects {
     @Autowired
     private AuthenticationLogger logger;
 
