@@ -74,7 +74,7 @@ function getUserInfoHtml({userId, firstName, lastName, role, login, password}) {
     userInfo.dataset.id = userId;
     userInfo.innerHTML = `
     <div class="row">
-      <a class="col-md-9 d-flex align-items-center" data-bs-toggle="collapse" href='#user${userId}' role="button" aria-expanded="false" aria-controls="collapseExample">
+      <a class="col-md-9 d-flex users-list-item" data-bs-toggle="collapse" href='#user${userId}' role="button" aria-expanded="false" aria-controls="collapseExample">
         <p class="user-info__name">${firstName} ${lastName} </p>
         <p class="user-info__email users__email__left">${login}</p>
       </a>

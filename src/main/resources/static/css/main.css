@@ -993,6 +993,7 @@ body {
 .user-info__name {
     font-size: 18px;
     color: #007802;
+    width: 30%;
 }
 
 .user-info__email {
