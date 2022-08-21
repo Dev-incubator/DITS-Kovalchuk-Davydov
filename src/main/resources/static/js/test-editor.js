@@ -334,7 +334,7 @@ function getQuestionHtml({name, testId, questions}) {
     </div>
     <div class="collapse question__list mt-3" id=test${testId} data-test-id=${testId}>
       ${
-        questions.reduce((accum, {questionId, description}, index) => {
+        questions.map(({questionId, description}, index) => {
             return `
             <div class="row question__item mb-2 mt-3" data-id=${questionId}>
               <span class="index-num">${index + 1}.</span>
@@ -345,7 +345,7 @@ function getQuestionHtml({name, testId, questions}) {
               </div>
             </div>
           `
-        }, '')
+        }, '').join('')
     }
     </div>
   `

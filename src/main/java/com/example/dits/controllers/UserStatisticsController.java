@@ -9,6 +9,7 @@ import com.example.dits.entity.Test;
 import com.example.dits.entity.User;
 import com.example.dits.mapper.UserSatatisticsMapper;
 
+import com.example.dits.mapper.UserStatisticsMapper;
 import com.example.dits.service.StatisticService;
 import com.example.dits.service.TestService;
 import com.example.dits.service.UserService;
