@@ -56,7 +56,6 @@ public class AdminUserController {
         int userId = userInfo.getUserId();
         Role role = roleService.getRoleByRoleName(userInfo.getRole());
         user.setRole(role);
-        user.setPassword(passwordEncoder.encode(userInfo.getPassword()));
         try {
             userService.update(user, userId);
         } catch (Exception e) {
