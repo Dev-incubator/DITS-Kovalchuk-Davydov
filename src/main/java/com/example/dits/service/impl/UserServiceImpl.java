@@ -30,18 +30,20 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Override
     public void update(User user, int id) {
-        User userById = repository.getById(id);
-        userById.setFirstName(user.getFirstName());
-        userById.setLastName(user.getLastName());
-        userById.setRole(user.getRole());
-        userById.setLogin(user.getLogin());
-        userById.setPassword(user.getPassword());
+        if (repository.getUserByLogin(user.getLogin()) == null && user.getRole() != null) {
+            User userById = repository.getById(id);
+            userById.setFirstName(user.getFirstName());
+            userById.setLastName(user.getLastName());
+            userById.setRole(user.getRole());
+            userById.setLogin(user.getLogin());
+            userById.setPassword(user.getPassword());
+        }
     }
 
     @Transactional
     @Override
     public void save(User user) {
-        if (repository.getUserByLogin(user.getLogin()) == null || user.getRole() != null) {
+        if (repository.getUserByLogin(user.getLogin()) == null && user.getRole() != null) {
             repository.save(user);
         }
     }

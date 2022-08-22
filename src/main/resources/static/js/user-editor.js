@@ -82,26 +82,8 @@ function getUserInfoHtml({userId, firstName, lastName, role, login, password}) {
         <button class="user__edit-button" id="editUserFormButton" data-bs-target="#editUserModal" data-bs-toggle="modal"><img src="/img/edit-icon.svg" alt="Edit user" class="icon-btn"></button>
         <button class="user__delete-button"><img src="/img/delete-icon.svg" data-bs-target="#confirmDeleteModal" data-bs-toggle="modal" alt="Delete user" class="icon-btn"></button>
       </div>
-    </div>
-    <div class="collapse user-detail-info mt-3" id=user${userId} data-user-id=${userId}>
-            <div class="row user-detail-item mb-2 mt-3" data-id=${userId}>
-              <div class="user-param">
-                <span>Name</span><input class="form-input mb-1 w-50" type="text" value="${firstName}" disabled="disabled"/>
-              </div>
-              <div class="user-param">
-                 <span>Surname</span><input class="form-input mb-1 w-50" type="text" value="${lastName}" disabled="disabled"/>
-              </div>
-              <div class="user-param">
-                <span>Role</span><input class="form-input mb-1 w-50" type="text" value="${role}" disabled="disabled"/>
-              </div>
-              <div class="user-param">
-                <span>Login</span><input class="form-input mb-1 w-50" type="text" value="${login}" disabled="disabled"/>
-              </div>
-              <div class="user-param">
-                <span>Password</span><input class="form-input mb-1 w-50" type="text" value="${password}" disabled="disabled"/>
-              </div>
-            </div>
-    </div>
+    </div> 
+    
   `
     return userInfo
 }
