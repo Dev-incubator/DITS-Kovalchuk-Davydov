@@ -2,12 +2,7 @@ package com.example.dits.controllers;
 
 import com.example.dits.dto.TestStatisticByUser;
 
-import com.example.dits.dto.UserInfoDTO;
-import com.example.dits.entity.Question;
-import com.example.dits.entity.Statistic;
-import com.example.dits.entity.Test;
 import com.example.dits.entity.User;
-import com.example.dits.mapper.UserSatatisticsMapper;
 
 import com.example.dits.mapper.UserStatisticsMapper;
 import com.example.dits.service.StatisticService;
@@ -20,7 +15,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 
 import java.util.List;
 

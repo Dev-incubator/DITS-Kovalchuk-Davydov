@@ -7,6 +7,7 @@ import com.example.dits.dto.UserInfoDTO;
 import com.example.dits.entity.*;
 import com.example.dits.service.*;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -24,9 +25,10 @@ public class TestPageController {
     private final QuestionService questionService;
     private final AnswerService answerService;
     private final StatisticService statisticService;
+    private final ModelMapper modelMapper;
 
     @GetMapping("/goTest")
-    public String goTest(@RequestParam int testId, @RequestParam(value = "theme") String topicName, ModelMap model, HttpSession session){
+    public String goTest(@RequestParam int testId, @RequestParam(value = "theme") String topicName, ModelMap model, HttpSession session) {
 
         Test test = testService.getTestByTestId(testId);
         List<QuestionDTO> questionList = questionService.getQuestionsByTest(test);
@@ -42,65 +44,66 @@ public class TestPageController {
         session.setAttribute("questionSize", quantityOfQuestions);
         session.setAttribute("quantityOfRightAnswers", quantityOfRightAnswers);
         session.setAttribute("statistics", new ArrayList<StatisticDTO>());
-        session.setAttribute("questions",questionList);
-        session.setAttribute("questionNumber" , ++questionNumber);
+        session.setAttribute("questions", questionList);
+        session.setAttribute("questionNumber", ++questionNumber);
 
         model.addAttribute("question", questionDescription);
         model.addAttribute("answers", answers);
-        model.addAttribute("title","Testing");
+        model.addAttribute("title", "Testing");
         return "user/testPage";
     }
 
     @GetMapping("/nextTestPage")
     public String nextTestPage(@RequestParam(value = "answeredQuestion", required = false) List<Integer> answeredQuestion,
                                ModelMap model,
-                               HttpSession session){
+                               HttpSession session) {
 
         List<QuestionDTO> questionList = (List<QuestionDTO>) session.getAttribute("questions");
         int questionNumber = (int) session.getAttribute("questionNumber");
-        UserInfoDTO user = (UserInfoDTO) session.getAttribute("user");
-        boolean isCorrect = answerService.isRightAnswer(answeredQuestion,questionList,questionNumber);
+        User user = (User) session.getAttribute("user");
+        boolean isCorrect = answerService.isRightAnswer(answeredQuestion, questionList, questionNumber);
 
         List<AnswerDTO> answers = answerService.getAnswersFromQuestionList(questionList, questionNumber);
         String questionDescription = questionService.getDescriptionFromQuestionList(questionList, questionNumber);
 
         List<StatisticDTO> statisticList = (List<StatisticDTO>) session.getAttribute("statistics");
         statisticList.add(StatisticDTO.builder()
-                .questionId(questionList.get(questionNumber -1).getQuestionId())
+                .questionId(questionList.get(questionNumber - 1).getQuestionId())
                 .username(user.getLogin())
                 .isCorrect(isCorrect)
                 .build());
 
         session.setAttribute("statistics", statisticList);
-        session.setAttribute("questionNumber" , ++questionNumber);
-        model.addAttribute("question",questionDescription);
+        session.setAttribute("questionNumber", ++questionNumber);
+        model.addAttribute("question", questionDescription);
         model.addAttribute("answers", answers);
-        model.addAttribute("title","Testing");
+        model.addAttribute("title", "Testing");
         return "user/testPage";
     }
 
     @GetMapping("/resultPage")
     public String testStatistic(@RequestParam(value = "answeredQuestion", required = false) List<Integer> answeredQuestion,
                                 ModelMap model,
-                                HttpSession session){
+                                HttpSession session) {
 
         List<QuestionDTO> questions = (List<QuestionDTO>) session.getAttribute("questions");
         int questionNumber = questions.size();
-        boolean isCorrect = answerService.isRightAnswer(answeredQuestion,questions,questionNumber);
-        UserInfoDTO user = (UserInfoDTO) session.getAttribute("user");
+        boolean isCorrect = answerService.isRightAnswer(answeredQuestion, questions, questionNumber);
+        User user = (User) session.getAttribute("user");
+        UserInfoDTO userInfoDTO = modelMapper.map(user, UserInfoDTO.class);
         List<StatisticDTO> statisticList = (List<StatisticDTO>) session.getAttribute("statistics");
 
-        checkIfResultPage(questions, questionNumber, isCorrect, user, statisticList);
+        checkIfResultPage(questions, questionNumber, isCorrect, userInfoDTO, statisticList);
         setResultAttributes(session, statisticList);
         statisticService.saveListOfStatisticsToDB(statisticList);
-        model.addAttribute("title","Result");
+        model.addAttribute("title", "Result");
         return "user/resultPage";
     }
 
     private void checkIfResultPage(List<QuestionDTO> questions, int questionNumber, boolean isCorrect, UserInfoDTO user, List<StatisticDTO> statisticList) {
-        if (!isResultPage(questionNumber, statisticList)){
+        if (!isResultPage(questionNumber, statisticList)) {
             statisticList.add(StatisticDTO.builder()
-                    .questionId(questions.get(questionNumber -1).getQuestionId())
+                    .questionId(questions.get(questionNumber - 1).getQuestionId())
                     .username(user.getLogin())
                     .isCorrect(isCorrect)
                     .build());

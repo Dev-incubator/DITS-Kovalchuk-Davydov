@@ -16,7 +16,7 @@ import java.util.Date;
 
 @Aspect
 @Component
-public class UserAspects {
+public class UserLoggingAspects {
     @Autowired
     private UserLogger logger;
 
