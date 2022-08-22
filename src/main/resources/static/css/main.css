@@ -715,11 +715,6 @@ body {
     color: #000000;
 }
 
-
-.modal-dialog {
-    margin-top: 10%;
-}
-
 .modal-content {
     padding: 30px 70px 47px 70px;
     box-shadow: 6px 6px 20px rgba(0, 0, 0, 0.15);
@@ -740,6 +735,14 @@ body {
 
 .modal__description {
     margin-top: 22px;
+    font-size: 25px;
+}
+
+.modal__description__warning {
+    margin-top: 22px;
+    font-size: 21px;
+    font-family: 'Roboto';
+    font-style: normal;
 }
 
 .confirmation-modal-title {
@@ -751,7 +754,7 @@ body {
 
     /* h2 */
 
-    font-family: 'Roboto';
+    font-family: 'Roboto', serif;
     font-style: normal;
     font-weight: 500;
     font-size: 30px;
@@ -812,6 +815,10 @@ body {
     border-radius: 10px;
 }
 
+.w-48 {
+    width:48%!important
+}
+
 .confirmation-modal-btn-accept {
     position: absolute;
     left: 53%;
@@ -856,6 +863,24 @@ body {
 
 .btn:focus {
     background-color: #17ac19;
+}
+
+
+.btn-orange {
+    background-color: #F68F0F;
+    color: #fff;
+    font-size: 24px;
+    font-weight: 500;
+    border-radius: 10px;
+}
+
+.btn-orange:hover {
+    background-color: #bf7212;
+    color: #fff;
+}
+
+.btn-orange:focus {
+    background-color: #ef9320;
 }
 
 .btn-gray {
@@ -968,6 +993,7 @@ body {
 .user-info__name {
     font-size: 18px;
     color: #007802;
+    width: 30%;
 }
 
 .user-info__email {
@@ -988,6 +1014,15 @@ body {
 
 .user-info__button:hover {
     transform: scale(1.2);
+}
+
+.user-param {
+    display: flex;
+    justify-content: start;
+}
+
+.user-param > span {
+    width: 10%;
 }
 
 .createUserModal__content {

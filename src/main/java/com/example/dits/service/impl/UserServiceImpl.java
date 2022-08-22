@@ -41,7 +41,9 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Override
     public void save(User user) {
-        repository.save(user);
+        if (repository.getUserByLogin(user.getLogin()) == null) {
+            repository.save(user);
+        }
     }
 
     @Transactional
