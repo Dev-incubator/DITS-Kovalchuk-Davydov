@@ -57,7 +57,12 @@ public class AdminUserController {
         Role role = roleService.getRoleByRoleName(userInfo.getRole());
         user.setRole(role);
         user.setPassword(passwordEncoder.encode(userInfo.getPassword()));
-        userService.update(user, userId);
+        try {
+            userService.update(user, userId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         return "redirect:/admin/getUsers";
     }
 
