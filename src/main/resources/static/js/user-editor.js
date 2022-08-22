@@ -7,6 +7,7 @@ const deleteConfirmationModal = document.getElementById('confirmDeleteModal');
 const token = document.head.querySelector('meta[name="_csrf"]').getAttribute('content');
 let usersData = null;
 let currentUserId = null;
+const baseUrl = window.origin;
 
 
 window.onLoad = fillUsers();
@@ -133,7 +134,7 @@ async function fillUsers() {
 }
 
 async function getUsersData() {
-    const url = new URL("http://localhost:8080/admin/getUsers");
+    const url = new URL(baseUrl + "/admin/getUsers");
     const response = await fetch(url.toString());
     usersData = await response.json();
     return usersData;
@@ -149,7 +150,7 @@ async function fillEditUserForm(currentUserId) {
 
 async function addNewUser(firstName, lastName, role, login, password) {
     newUserFormButton.click();
-    const url = new URL("http://localhost:8080/admin/addUser");
+    const url = new URL(baseUrl + "/admin/addUser");
     let userInfo = {firstName, lastName, role, login, password};
     const response = await fetch(url.toString(), {
         method: 'POST',
@@ -165,7 +166,7 @@ async function addNewUser(firstName, lastName, role, login, password) {
 
 async function editUser(userId, firstName, lastName, role, login, password) {
     editUserFormButton.click();
-    const url = new URL("http://localhost:8080/admin/editUser");
+    const url = new URL(baseUrl + "/admin/editUser");
     let userInfo = {userId, firstName, lastName, role, login, password};
     const response = await fetch(url.toString(), {
         method: 'POST',
@@ -180,7 +181,7 @@ async function editUser(userId, firstName, lastName, role, login, password) {
 }
 
 async function deleteUser(userId) {
-    const url = new URL("http://localhost:8080/admin/deleteUser");
+    const url = new URL(baseUrl + "/admin/deleteUser");
     let params = {userId};
     url.search = new URLSearchParams(params).toString();
     const response = await fetch(url.toString(), {
