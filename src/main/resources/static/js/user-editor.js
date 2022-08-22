@@ -47,7 +47,6 @@ editUserForm.addEventListener('submit', (event) => {
     createNewUserForm.reset();
 });
 
-
 function setCurrentUserId(target) {
     currentUserId = target.closest('.user-info').dataset.id;
 }

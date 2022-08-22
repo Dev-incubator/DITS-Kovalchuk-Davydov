@@ -58,6 +58,17 @@ function updateResult(data) {
 
 function reverseTests(target) {
     target.closest('#sortTestsButton').classList.toggle('reverse');
+
+    const rowNumbers = resultTableBody.getElementsByClassName('col-1');
+    const size = rowNumbers.length;
+
+    for (let num of rowNumbers) {
+        const oldNum = num.innerHTML;
+        const newNum = size - oldNum + 1;
+
+        num.innerHTML = '' + newNum;
+    }
+
     const reversedTests = Array.from(resultTableBody.querySelectorAll('.test')).reverse();
     resultTableBody.innerHTML = '';
     reversedTests.forEach(test => {

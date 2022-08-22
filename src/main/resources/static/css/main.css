@@ -1016,6 +1016,15 @@ body {
     transform: scale(1.2);
 }
 
+.user-param {
+    display: flex;
+    justify-content: start;
+}
+
+.user-param > span {
+    width: 10%;
+}
+
 .createUserModal__content {
     padding: 40px 0 52px 0;
     box-shadow: 6px 6px 20px rgba(0, 0, 0, 0.15);
