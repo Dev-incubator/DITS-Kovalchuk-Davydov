@@ -101,7 +101,6 @@
             <div class="row">
                 <h5 class="col modal__title">Create new user</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-
             </div>
             <form class="d-flex flex-column" th:action="@{/admin/addUser}" id="newUserForm" method="post">
                 <label class="d-flex mb-5 mt-5">
@@ -115,7 +114,7 @@
                 <label class="d-flex mb-5">
                     <span class="w-25">Role</span>
                     <select class="form-input w-75" aria-label="Default select example" name="role">
-                        <option selected>Choose the role</option>
+                        <option selected disabled="disabled">Choose the role</option>
                         <option value="ROLE_USER">User</option>
                         <option value="ROLE_ADMIN">Admin</option>
                     </select>
@@ -153,8 +152,6 @@
                         </button>
                         <button type="submit" class="btn w-48 confirm-button" data-bs-dismiss="modal">Accept
                         </button>
-<!--                        <button type="submit" class="btn w-48" data-bs-dismiss="modal">Accept-->
-<!--                        </button>-->
                     </div>
                 </div>
         </div>
