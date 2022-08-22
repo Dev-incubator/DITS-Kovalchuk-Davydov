@@ -31,6 +31,11 @@ public class SecurityController {
 
     @GetMapping("/login")
     public String loginPage(ModelMap model) {
+        String authority = getAuthority();
+        if (authority.contains("USER"))
+            return "redirect:/user/chooseTest";
+        if (authority.contains("ADMIN"))
+            return "redirect:/admin/userEditor";
         model.addAttribute("title", "Login");
         return "login";
     }
